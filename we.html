@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Profile Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .profile-card {
+            width: 100%;
+            max-width: 380px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: -1;
+            clip-path: ellipse(100% 80% at 50% -20%);
+        }
+        
+        .profile-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            position: relative;
+        }
+        
+        .profile-img-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+        
+        .profile-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .profile-title {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .profile-description {
+            padding: 0 30px 25px;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+            font-weight: 300;
+            transition: all 0.4s ease;
+        }
+        
+        .profile-description.short {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .toggle-btn {
+            display: block;
+            margin: 0 auto 30px;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+        }
+        
+        .toggle-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: var(--light);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-card {
+                max-width: 340px;
+            }
+            
+            .profile-img-container {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .profile-name {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-img-container">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Image" class="profile-img">
+            </div>
+            <h1 class="profile-name">Emma Wilson</h1>
+            <p class="profile-title">UI/UX Designer & Developer</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        
+        <div class="profile-description short">
+            Creative UI/UX designer with 6+ years of experience crafting beautiful digital experiences. 
+            Passionate about user-centered design and creating interfaces that are both aesthetically 
+            pleasing and highly functional. Expert in Figma, Adobe XD, and front-end development. 
+            Love mentoring junior designers and speaking at design conferences worldwide.
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleDescription()">
+            <span>Show More</span>
+        </button>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5.7K</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">89</div>
+                <div class="stat-label">Clients</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDescription() {
+            const description = document.querySelector('.profile-description');
+            const button = document.querySelector('.toggle-btn span');
+            
+            description.classList.toggle('short');
+            
+            if (description.classList.contains('short')) {
+                button.textContent = 'Show More';
+            } else {
+                button.textContent = 'Show Less';
+            }
+        }
+    </script>
+</body>
+</html>
